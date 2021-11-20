@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn for covid prediction API
+After=network.target
+
+[Service]
+User=covid
+WorkingDirectory=/home/covid
+ExecStart=gunicorn3 -w 2 -b :5001 -t 360 --reload wsgi:app
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
