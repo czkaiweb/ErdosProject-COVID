@@ -1,3 +1,9 @@
+# Download three datasets from the CDC, process and combine them, then
+# write selected data from each state to .csv file. Use the data to train
+# a vector autoregression model, pickle the model for later use by the API,
+# then generate graphs of observed and predicted covid hospital bed
+# usage in each state. Save the graphs as .png files to be loaded by webpage.
+
 from sodapy import Socrata
 import pandas as pd
 import numpy as np
@@ -9,15 +15,27 @@ from sys import argv
 from os import listdir
 import datetime
 
-# Should we set aside 80 days' worth of data?
+# Should we set aside 80 days' worth of data for testing?
 holdout = True
 
+
+# If the script is run with no arguments, then download data from CDC.
+# If there is an argument, don't download fresh data but instead load
+# in saved data (will still refit model and regenereate images).
+#
+# Socrata has an API for accessing CDC (and other) data sets
+# I registered our project for an App Token: YeLTGbOCV2gjoCenq2ve5LzDm,
+# which should be included in our requests to Socrata API.
+# The datasets to download are:
+# Vaccinations, identifier unsk-b7fc
+# Daily cases, identifier 9mfq-cb36
+# Hospital utilization, identifier g62h-syeh
+
 if len(argv) == 1:
-    # Download data from CDC
     print("Downloading data from the CDC")
     client = Socrata("data.cdc.gov",
                     "YeLTGbOCV2gjoCenq2ve5LzDm")
-    dataframe_list = []
+    dataframe_list = [] # Downloaded dataframes go into this list
     for record_identifier in ["unsk-b7fc", "9mfq-cb36"]:
         results = client.get(record_identifier, limit=50000)
         df = pd.DataFrame.from_records(results)
@@ -30,7 +48,7 @@ if len(argv) == 1:
     dataframe_list.append(df)
 
 
-    # Some data cleaning
+    # We only want a few columns from each dataset
     pruned_df_list = []
 
     df = dataframe_list[0]
@@ -47,14 +65,16 @@ if len(argv) == 1:
     df_pruned = df[["date","state","inpatient_beds_used_covid"]]
     pruned_df_list.append(df_pruned.rename({"inpatient_beds_used_covid":"beds"},
                                            axis=1))
-
+    
+    # Include only date, not time, in date column
     for df in pruned_df_list:
         for n in df.date.index:
             df.date[n] = df.date[n].split("T")[0]
 
+    # Start data on 2020-04-01, end datasets at the earliest
+    # end date of the three datasets (they are sometimes off by one)
     start_date = "2020-04-01"
     end_date = min(df.date.max() for df in pruned_df_list)
-
 
     # 50 states plus Washington DC and Puerto Rico
     state_list = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL',
@@ -64,7 +84,7 @@ if len(argv) == 1:
                   'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI',
                   'WV', 'WY']
 
-    # Separate data by state
+    # Separate data by state and save to .csv files
     covid_state = {}
     for state in state_list:
         for n in [2,1,0]:
@@ -92,17 +112,16 @@ if len(argv) == 1:
 
         covid_state[state] = df_all
         df_all.to_csv(f"covid_data/{state}.csv")
-else:
+else: # Script was called with an argument, so load saved data
     state_list = []
     covid_state = {}
     for filename in listdir("covid_data"):
         if filename[-4:] == ".csv":
             state = filename[:-4]
             state_list.append(state)
-            covid_state[state] = pd.read_csv(f"covid_data/{filename}")
-    
+            covid_state[state] = pd.read_csv(f"covid_data/{filename}")   
 
-# New data frame where columns are states
+# New dataframe where columns are states
 start_date = "2020-04-01"
     
 if holdout:
@@ -121,11 +140,11 @@ df_diff = df.copy()
 for state in state_list:
     # Compute backward differences (to make time series stationary)
     df_diff[state] = df[state].diff(1)
-df_diff = df_diff.iloc[1:].copy()
+df_diff = df_diff.iloc[1:].copy() # First backward difference is None, so drop it
 
 # Fit the model
-lag_order = 4 # What does this do?
-future = 30
+lag_order = 4 # VAR hyperparameter, needs tuning
+future = 30 # How far in the future do we want graph to go?
 model = VAR(df_diff.values)
 results = model.fit(lag_order)
 with open("model.pickle", 'wb') as f:
@@ -158,6 +177,8 @@ for state_num in range(len(state_list)):
     plt.legend()
     plt.xlabel("Date")
     plt.ylabel("Beds used")
+    
+    # Add a few dates as labels to x-axis
     x_pos = []
     x_date = []
     for k in range(-8,5,2):  
