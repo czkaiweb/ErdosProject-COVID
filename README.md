@@ -14,3 +14,7 @@ Open the notebook `optimal_model.ipynb` and run all the cells. This will downloa
 
 ## API
 You can get predictions from our public API. From the command line, you can enter e.g. `curl http://130.111.196.10:5001/?state=AL`. Or you can see graphs of all of our predictions on our [website](http://130.111.196.10).
+
+## About
+This project was part of the Fall 2021 data science mini-course through the Erdős Institute.
+The team members were Lara Du, Julian Rosen, and Kai Wei. Our project mentor was Ben Campbell.
