@@ -12,8 +12,8 @@ Open the notebook `models/optimal_model.ipynb` and run all the cells. This will 
 ![](graphs/DE.png "Delaware")
 ![](graphs/TX.png "Texas")
 
-## API
-You can get predictions from our public API. From the command line, you can enter e.g. `curl http://130.111.196.10:5001/?state=AL`. Or you can see graphs of all of our predictions on our [website](http://130.111.196.10).
+## Website and API
+You can see graphs of all of our predictions on our website [https://covidforecast.net/](https://covidforecast.net/). You can also get predictions from our public API: at the command line, enter e.g. `curl covidforecast.net:5001/?state=AL`.
 
 ## About
 This project was part of the Fall 2021 data science mini-course through the Erdős Institute.
