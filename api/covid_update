@@ -1,0 +1,2 @@
+# This file goes in /etc/cron.d/
+30 14 * * * root docker run -ti -v /home/covid/covid_forecaster_volume:/home/forecaster/covid_forecaster_volume covid_updater
