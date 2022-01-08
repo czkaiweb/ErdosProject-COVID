@@ -4,7 +4,7 @@ The COVID-19 forecasting tool has several components:
 - A containerized application to service the API, using flask and gunicorn
 - A webpage, with links to our predictions (present and past)
 
-Installation instructions, from the `api` directory:
+Installation instructions for an Ubuntu system. From the `api` directory:
 - Dockerfiles are included in this repository, but you will need to build
     the images yourself. First, make sure you have docker installed. If not,
     you can install with  
