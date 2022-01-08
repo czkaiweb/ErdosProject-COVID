@@ -1,4 +1,39 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>COVID forecast</title>
+<!DOCTYPE html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>COVID-19 forecast</title>
         </head>
-        <body bgcolor=#ffffb0>
-        <center><h1>Select a state to see our COVID hospital use forecast </h1></center><a href=./graphs/AK.png>AK</a> <a href=./graphs/AL.png>AL</a> <a href=./graphs/AR.png>AR</a> <a href=./graphs/AZ.png>AZ</a> <a href=./graphs/CA.png>CA</a> <a href=./graphs/CO.png>CO</a> <a href=./graphs/CT.png>CT</a> <a href=./graphs/DC.png>DC</a> <a href=./graphs/DE.png>DE</a> <a href=./graphs/FL.png>FL</a> <a href=./graphs/GA.png>GA</a> <a href=./graphs/HI.png>HI</a> <a href=./graphs/IA.png>IA</a> <a href=./graphs/ID.png>ID</a> <a href=./graphs/IL.png>IL</a> <a href=./graphs/IN.png>IN</a> <a href=./graphs/KS.png>KS</a> <a href=./graphs/KY.png>KY</a> <a href=./graphs/LA.png>LA</a> <a href=./graphs/MA.png>MA</a> <a href=./graphs/MD.png>MD</a> <a href=./graphs/ME.png>ME</a> <a href=./graphs/MI.png>MI</a> <a href=./graphs/MN.png>MN</a> <a href=./graphs/MO.png>MO</a> <a href=./graphs/MS.png>MS</a> <a href=./graphs/MT.png>MT</a> <a href=./graphs/NC.png>NC</a> <a href=./graphs/ND.png>ND</a> <a href=./graphs/NE.png>NE</a> <a href=./graphs/NH.png>NH</a> <a href=./graphs/NJ.png>NJ</a> <a href=./graphs/NM.png>NM</a> <a href=./graphs/NV.png>NV</a> <a href=./graphs/NY.png>NY</a> <a href=./graphs/OH.png>OH</a> <a href=./graphs/OK.png>OK</a> <a href=./graphs/OR.png>OR</a> <a href=./graphs/PA.png>PA</a> <a href=./graphs/PR.png>PR</a> <a href=./graphs/RI.png>RI</a> <a href=./graphs/SC.png>SC</a> <a href=./graphs/SD.png>SD</a> <a href=./graphs/TN.png>TN</a> <a href=./graphs/TX.png>TX</a> <a href=./graphs/UT.png>UT</a> <a href=./graphs/VA.png>VA</a> <a href=./graphs/VT.png>VT</a> <a href=./graphs/WA.png>WA</a> <a href=./graphs/WI.png>WI</a> <a href=./graphs/WV.png>WV</a> <a href=./graphs/WY.png>WY</a> 
+        <body bgcolor=#ADD8FF>
+        <h1>COVID-19 hospital use forecast </h1>
+
+Updated daily <br>
+<tt>
+<font size=6>
+<a href=./graphs/AK.png>AK</a> <a href=./graphs/AL.png>AL</a> <a href=./graphs/AR.png>AR</a> <a href=./graphs/AZ.png>AZ</a>
+<a href=./graphs/CA.png>CA</a> <a href=./graphs/CO.png>CO</a> <a href=./graphs/CT.png>CT</a> <a href=./graphs/DC.png>DC</a>
+<a href=./graphs/DE.png>DE</a> <a href=./graphs/FL.png>FL</a> <a href=./graphs/GA.png>GA</a> <a href=./graphs/HI.png>HI</a>
+<a href=./graphs/IA.png>IA</a>
+<br>
+<a href=./graphs/ID.png>ID</a> <a href=./graphs/IL.png>IL</a> <a href=./graphs/IN.png>IN</a> <a href=./graphs/KS.png>KS</a>
+<a href=./graphs/KY.png>KY</a> <a href=./graphs/LA.png>LA</a> <a href=./graphs/MA.png>MA</a> <a href=./graphs/MD.png>MD</a>
+<a href=./graphs/ME.png>ME</a> <a href=./graphs/MI.png>MI</a> <a href=./graphs/MN.png>MN</a> <a href=./graphs/MO.png>MO</a>
+<a href=./graphs/MS.png>MS</a>
+<br>
+<a href=./graphs/MT.png>MT</a> <a href=./graphs/NC.png>NC</a> <a href=./graphs/ND.png>ND</a> <a href=./graphs/NE.png>NE</a>
+<a href=./graphs/NH.png>NH</a> <a href=./graphs/NJ.png>NJ</a> <a href=./graphs/NM.png>NM</a> <a href=./graphs/NV.png>NV</a>
+<a href=./graphs/NY.png>NY</a> <a href=./graphs/OH.png>OH</a> <a href=./graphs/OK.png>OK</a> <a href=./graphs/OR.png>OR</a>
+<a href=./graphs/PA.png>PA</a>
+<br>
+<a href=./graphs/PR.png>PR</a> <a href=./graphs/RI.png>RI</a> <a href=./graphs/SC.png>SC</a> <a href=./graphs/SD.png>SD</a>
+<a href=./graphs/TN.png>TN</a> <a href=./graphs/TX.png>TX</a> <a href=./graphs/UT.png>UT</a> <a href=./graphs/VA.png>VA</a>
+<a href=./graphs/VT.png>VT</a> <a href=./graphs/WA.png>WA</a> <a href=./graphs/WI.png>WI</a> <a href=./graphs/WV.png>WV</a>
+<a href=./graphs/WY.png>WY</a>
+</font>
+</tt>
+<br><br>
+<DIV style="width: 600px">
+This forecasting tool uses machine learning algorithms to predict the number of hospital beds filled by COVID-19 inpatients in each state, up to 14 days in the future.
+To learn more about our methods or access the source code, visit our <a href=https://github.com/czkaiweb/ErdosProject-COVID>GitHub repository</a>.
+<br>You can also try our API. From the command line, enter e.g.<br> <code>curl covidforecast.net:5000/?state=AL</code>
+<br><br>
+Created by Lara Du, Julian Rosen, and Kai Wei as a project for the Erd&#337;s Institute's Fall 2021 data science mini-course. 
+Our forecast is intended for educational purposes only, we cannot guarantee its accuracy.
+</DIV>
+</body></html>
