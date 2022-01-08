@@ -14,6 +14,7 @@ Open the notebook `models/optimal_model.ipynb` and run all the cells. This will 
 
 ## Website and API
 You can see graphs of all of our predictions on our website [https://covidforecast.net/](https://covidforecast.net/). You can also get predictions from our public API. For exampl, from the command line, try `curl covidforecast.net:5000/?state=AL`.
+Installation instructions can be found [here](api/README.md).
 
 ## About
 This project was part of the Fall 2021 data science mini-course through the Erdős Institute.
