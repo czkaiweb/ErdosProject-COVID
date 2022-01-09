@@ -227,7 +227,7 @@ print("Updating (incl. ARIMA predictions)")
 for state in state_list:
     update_state((covid_state[state], covid_state_old[state]))
 
-    name_new = f"covid_forecaster_volume/data/{state}.gz"
+    name_new = f"tmp/data/{state}.gz"
     #name_old = f"covid_forecaster_volume/data/{state}.gz.bak"
     #try:
     #    remove(name_old)
@@ -362,9 +362,9 @@ def show_prediction(state, save=False,
     plt.title(title_string, fontsize=22)
     if save:
         if historic:
-            plt.savefig(f"covid_forecaster_volume/graphs/previous/{state}.png")
+            plt.savefig(f"tmp/graphs/previous/{state}.png")
         else:
-            plt.savefig(f"covid_forecaster_volume/graphs/{state}.png")
+            plt.savefig(f"tmp/graphs/{state}.png")
     else:
         plt.show()
     plt.close()
@@ -382,6 +382,6 @@ for state in state_list:
     date_list = list(df.date.iloc[-_duration:])
     
     D = {date_list[n]:int(np.round(pred[state][n],0)) for n in range(_duration)}
-    with open(f"covid_forecaster_volume/forecasts/{state}", 'w+') as file:
+    with open(f"tmp/forecasts/{state}", 'w+') as file:
         file.write(json.dumps(D))
         

@@ -1,19 +1,23 @@
 FROM python:3.9-slim-bullseye
 
-
 RUN useradd -m forecaster
-VOLUME /home/forecaster/covid_forecaster_volume
-RUN chown -R forecaster:forecaster /home/forecaster/covid_forecaster_volume
-
 USER forecaster
 WORKDIR /home/forecaster/
 
-
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
-COPY update.py .
 
-#CMD whoami && id -u $(whoami) && ls -l && touch covid_forecaster_volume/tester
-CMD /usr/local/bin/python3 update.py
-#CMD cat covid_forecaster_volume/forecasts/AK
-#CMD ls -l /home/forecaster && whoami
+RUN mkdir tmp
+RUN mkdir tmp/graphs
+RUN mkdir tmp/graphs/previous
+RUN mkdir tmp/data
+RUN mkdir tmp/forecasts
+
+COPY update.py .
+COPY copyover.sh .
+RUN mkdir covid_forecaster_volume
+VOLUME /home/forecaster/covid_forecaster_volume
+
+USER root
+WORKDIR /home/forecaster
+CMD runuser -l forecaster -c "/usr/local/bin/python3.9 update.py" && /bin/bash copyover.sh
